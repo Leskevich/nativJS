@@ -230,15 +230,7 @@ console.log('lesson 3');
 //         return 'Hellow world'
 //     })
 
-console.log('start')
-Promise.resolve(10).then(console.log);
-//setInterval(console.log, 100, 'Yo');
-Promise.reject(0).catch(console.log);
-let i = 0;
-while (i < 5000000000) {
-    i++
-}
-console.log('end')
+//
 
 
 // setTimeout(console.log, 1000, 5000);

@@ -117,7 +117,6 @@ function superSum(num: number) {
             return helper;
         }
     }
-
     return helper;
 }
 
@@ -125,13 +124,13 @@ function superSum(num: number) {
 
 // Task 05
 // решить все задачи по рекурсии которые даны в конце статьи https://learn.javascript.ru/recursion
-function pow(x:number) {
-    let result = 0;
-    for (let i = x; i >= 0; --i) {
-        result = result+i;
+    function pow(x:number) {
+        let result = 0;
+        for (let i = x; i >= 0; --i) {
+            result = result+i;
+        }
+        return result;
     }
-    return result;
-}
 function power (x:number) {
     if (x == 1) {
         return x;

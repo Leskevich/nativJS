@@ -41,6 +41,48 @@ console.log('lesson 4');
 // свойства resolve и reject получают ссылки на соответствующие функции
 // resolve и reject. Следующие два обработчика запускают методы resolve и reject.
 
+type testObjType = {
+    promise: null | Promise<any>
+    resolve: null | Function
+    reject: null | Function
+    onSuccess: (paramName: string) => void
+    onError: (paramName: string) => void
+}
+
+const handlePromise: testObjType = {
+    promise: null,
+    resolve: null,
+    reject: null,
+    onError: (paramName: string) => {
+        console.log(`Promise is rejected with error: ${paramName}`)
+    },
+    onSuccess: (paramName: string) => {
+        console.log(`Promise is resolved with data: ${paramName}`)
+    },
+}
+
+export const createPromise = () => {
+    const somePromise: Promise<any> = new Promise( (res, rej) => {
+        handlePromise.resolve = res;
+        handlePromise.reject = rej;
+    });
+    handlePromise.promise = somePromise;
+    handlePromise.promise
+        .then(handlePromise.onSuccess)
+        .catch(handlePromise.onError);
+
+    // @ts-ignore
+    window.promObj = handlePromise;
+}
+
+export const resolvePromise = () => {
+    handlePromise.resolve && handlePromise.resolve('Yo Yo Yo');
+}
+
+export const rejectPromise = () => {
+    handlePromise.reject && handlePromise.reject('Sad story');
+}
+
 
 // Task 06
 // Создайте промис, который через 1 с возвращает строку "My name is".
@@ -56,6 +98,208 @@ console.log('lesson 4');
 // Получите результаты работы промисов, объедините свойства объектов
 // и выведите в консоль {name, age, city}
 
+
+// setTimeout(()=> console.log(1), 0);
+// console.log(2);
+// (() => console.log(3))();
+// Promise.resolve(console.log(4));
+// // 2 3 4 1
+// // 2 3 1 4
+
+// function f(num:number) {
+//     console.log(num);
+// }
+// Promise.resolve(1)
+//     .then(f);
+// (function(){
+//     console.log(2);
+// })();
+// console.log(3);
+// new Promise((res, rej) => {
+//     console.log(4);
+// });
+// setTimeout(f, 0, 5);
+//
+// // 2 3 4 5 1
+// // 1 3 4 2 5
+//
+// // 2 3 4 1 5
+
+// async function sleep(ms:number) {
+//     setTimeout(() => {
+//         console.log(ms);
+//     }, ms*100);
+// }
+
+
+// async function sleep(ms:number) {
+//     return new Promise ( (res, rej) => {
+//             //res();
+//         setTimeout(() => {
+//             //res()
+//             res(console.log(ms));
+//             //res()
+//         }, ms*100);
+//             //res();
+//     });
+// }
+//
+// async function show() {
+//     await sleep(3)
+//     await sleep(2)
+//     await sleep(1)
+// }
+//
+// show();
+
+
+
+////////
+
+Task 1
+
+setTimeout(()=> console.log(1), 0);
+console.log(2);
+(() => console.log(3))();
+Promise.resolve(console.log(4));
+
+Task 2
+
+new Promise((res, rej) => {
+    console.log(1);
+})
+new Promise((res, rej) => {
+    setTimeout(()=> console.log(2), 0);
+})
+Promise.resolve(setTimeout(()=> console.log(3), 0));
+console.log(4);
+Promise.reject(console.log(5));
+
+Task 3
+
+(function(){
+    setTimeout(()=> console.log(1), 100);
+})();
+console.log(2);
+new Promise((res, rej) => {
+    setTimeout(()=> console.log(3), 50);
+})
+function f() {
+    console.log(4);
+}
+Promise.resolve(console.log(5));
+
+Task 3a
+(function(){
+    setTimeout(()=> console.log(1), 100);
+})();
+console.log(2);
+let i = 0;
+while ( i < 5000000000 ) {
+    i++
+}
+new Promise((res, rej) => {
+    setTimeout(()=> console.log(3), 50);
+})
+function f() {
+    console.log(4);
+}
+Promise.resolve(console.log(5));
+
+
+Task 4
+
+function f(num:number) {
+    console.log(num);
+}
+Promise.resolve(1)
+    .then(f);
+(function(){
+    console.log(2);
+})();
+console.log(3);
+new Promise((res, rej) => {
+    console.log(4);
+});
+setTimeout(f, 0, 5);
+
+Task 5
+
+console.log(1);
+function f() {
+    console.log(2);
+}
+setTimeout(()=>{
+    console.log(3);
+    let p = new Promise((res, rej) => {
+        console.log(4);
+        res();
+    });
+    p.then(() => f())
+},0);
+let l = new Promise((res, rej) => {
+    console.log(5);
+    rej();
+});
+l.then(res => console.log(res)).catch(() => console.log(6));
+console.log(7);
+
+Task 6
+
+setTimeout(() => console.log(1), 0);
+console.log(2);
+new Promise((resolve, reject) => {
+    setTimeout(() => reject(console.log(3), 1000));
+}).catch(() => console.log(4));
+console.log(5);
+
+Task 7
+
+async function sleep(ms) {
+    setTimeout(() => {
+        console.log(ms);
+    }, ms*100);
+}
+
+async function show() {
+    await sleep(3)
+    await sleep(2)
+    await sleep(1)
+}
+
+show();
+
+
+Task 8
+let pr1 = new Promise((res) => {
+    res(10);
+});
+let pr2 = new Promise((res) => {
+    res(0)
+});
+pr1
+    .then((res: any) => {
+        console.log(res);
+        return res + 2;
+    })
+    .then((res: any) => {
+        console.log(res);
+        return res + 2;
+    })
+    .then(console.log);
+pr2
+    .then((res: any) => {
+        console.log(res);
+        return res + 1;
+    })
+    .then((res: any) => {
+        console.log(res);
+        return res + 1;
+    })
+    .then(console.log);
+
+
+https://thebestcode.ru/
 
 
 // just a plug
