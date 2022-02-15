@@ -222,7 +222,6 @@ console.log('Lesson 5');
 // obj.a = obj2.a();
 
 
-
 // let obj = { name: 'Evgen' };
 // let obj2 = {
 //     name: 'Hanna',
@@ -353,15 +352,15 @@ console.log('Lesson 5');
 // Дан объект someObj, реализуйте функцию greeting и присвойте ее ключу объекта с аналогичным именем.
 // Функция должна вернуть строку `My name is ${name}. I am ${age}`, где name и age берутся из свойств объекта
 
-type someObjType = {
-    name: string;
-    age: number;
-}
-
-let someObj:someObjType = {
-    name: 'Eugene',
-    age: 32
-}
+// type someObjType = {
+//     name: string;
+//     age: number;
+// }
+//
+// let someObj: someObjType = {
+//     name: 'Eugene',
+//     age: 32
+// }
 
 // Task 02
 // реализовать счетчик counter в виде объекта со следующими методами:
@@ -371,19 +370,86 @@ let someObj:someObjType = {
 // set current count; - принимает и присваивает значение счетчику
 // rest current count - устанавливает значение счетчика равным 0
 // все методы должны ссылаться на сам объект
+// function Count () {
+//     this.count = 0
+// }
+// Count.prototype.getCurrentCount = function () {
+//     console.log(this.count)
+//     return this
+// }
+// Count.prototype.increment = function () {
+//     this.count + 1
+//     return this
+// }
+// Count.prototype.decrement = function () {
+//     this.count = this.count - 1
+//     return this
+// }
+// Count.prototype.setCurrentCount = function (set:number) {
+//     this.count = set
+//     return this
+// }
+// Count.prototype.restCurrentCount = function () {
+//     this.count = 0
+//     return this
+// }
+//
+// // @ts-ignore
+// let counter = new Count()
+
 
 // Task 03
 // переделайте код из Task 02, что бы сработал следующий код:
 // counter.setCurrentCount(10).increment().increment().increment().decrement().getCurrentCount() // 12
+// function Count (count) {
+//     this.count = count
+// }
+// Count.prototype.getCurrentCount = function () {
+//     console.log(this.count)
+//     return this
+// }
+// Count.prototype.increment = function () {
+//     this.count=this.count + 1
+//     console.log(this,'inc')
+//     return this
+// }
+// Count.prototype.decrement = function () {
+//     this.count= this.count - 1
+//     console.log(this,'dec')
+//     return this
+// }
+// Count.prototype.setCurrentCount = function (set) {
+//     console.log(set, 'set')
+//     this.count = set
+//     return this
+// }
+// Count.prototype.restCurrentCount = function () {
+//     this.count = 0
+//     return this
+// }
+// let counter = new Count(10)
+// counter.setCurrentCount(10).increment().increment().increment().decrement().getCurrentCount()
 
 // Task 04
 // Написать функцию конструктор myFirstConstructorFunc которая принимает 2 параметра name и age и возвращает объект
 // у которого будут эти свойства и метод greeting из Task 01
+// function D (name, age) {
+//     this.name=name;
+//     this.age=age;
+//     this.f=function() {console.log(`My name is ${this.name}. I am ${this.age}`) };
+// }
+// let s = new D('sdsda',23)
+// s.f()
 
 // Task 05 есть 2 объекта One и Two. С помощью bind и метода sayHello заставьте поздороваться объект One
 
 let One = {name: 'One'};
-let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${this.name}`)}};
+let Two = {
+    name: 'Two', sayHello: function () {
+        console.log(`Hello, my name is ${this.name}`)
+    }
+};
+Two.sayHello.bind(One)()
 
 // Task 06
 // создайте объект helperObj у которого есть следующие методы:
@@ -395,7 +461,9 @@ let Two = {name: 'Two', sayHello: function() {console.log(`Hello, my name is ${t
 // Bind
 // 1) Дана функция sumTwoNumbers, реализовать функцию bindNumber которая принимает функцию sumTwoNumbers и число, и
 // возвращает другую функцию, которое также принимает число и возвращает сумму этих чисел. Замыкание использовать нельзя
-function sumTwoNumbers(a:number,b:number):number {return a + b};
+function sumTwoNumbers(a: number, b: number): number {
+    return a + b
+};
 
 // 2) Напишите функцию которая принимает первым аргументом объект One, а вторым helperObj. Данная функция
 // возвращает другую функцию которая принимает строку в качестве аргумента и устанавливает ее свойству name объекта One
@@ -405,7 +473,6 @@ function sumTwoNumbers(a:number,b:number):number {return a + b};
 // Реализовать задачи 2-4 из Bind с помощью Call
 
 
-
-
 // just a plug
-export default () => {};
+export default () => {
+};
